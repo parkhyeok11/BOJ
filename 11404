@@ -1,0 +1,57 @@
+#include <iostream>
+#include<algorithm>
+using namespace std;
+
+int adj[100][100];
+int dist[100][100];
+
+int main() {
+    int n;
+    int m;
+    int tempx;
+    int tempy;
+    int num;
+    cin >> n;
+    cin >> m;
+
+    for (int i = 1; i <= m; i++) {
+        cin >> tempx;
+        cin >> tempy;
+        cin >> num;
+        if (adj[tempx][tempy] == NULL) {
+            adj[tempx][tempy] = num;
+        }
+        else adj[tempx][tempy] = min(adj[tempx][tempy], num);
+    }
+
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (i == j) dist[i][j] = 0;
+            else if (adj[i][j]) dist[i][j] = adj[i][j];
+            else dist[i][j] = 987654321;
+        }
+    }
+
+    for (int k = 1; k <= n; k++) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+            }
+        }
+    }
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (dist[i][j] >= 987654321) {
+                cout << 0 << " ";
+            }
+            else cout << dist[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
+
+
+    return 0;
+}
