@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+
+int main() {
+	int n1 = 0;
+	int n2 = 0;
+	int t;
+	cin >> n1 >> n2;
+
+	string r, l;
+	cin >> r;
+	cin >> l;
+	cin >> t;
+	reverse(r.begin(), r.end());
+	string ant = r + l;
+	int time = 0;
+	while (time < t) {
+		for (int i = 0; i < n1 + n2 - 1;i++) {
+			if (r.find(ant[i]) != string::npos && l.find(ant[i + 1]) != string::npos) {
+				swap(ant[i], ant[i + 1]);
+				i++;
+			}
+		}
+		time += 1;
+	}
+	cout << ant;
+	
+	return 0;
+}
