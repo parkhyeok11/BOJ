@@ -1,0 +1,48 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+int net[101][101];
+int v[101];
+
+void dfs(int net[][101], int n, int startNode, int* visit) {
+	int i = 1;
+	visit[startNode] = 1;
+
+	for (i = 1; i <= n; i++) {
+		if (i != startNode)
+			if (net[startNode][i] != 0 || net[i][startNode] != 0)
+				if (visit[i] == 0)
+					dfs(net, n, i, visit);
+	}
+}
+
+int main() {
+	int c;
+	int e;
+	int s;
+	int l;
+
+	cin >> c;
+	cin >> e;
+
+	while (e-- > 0) {
+		cin >> s >> l;
+		net[s][l] = 1;
+	}
+
+	dfs(net, c, 1, v);
+
+	int temp = 0;
+
+	for (int i = 2; i <= c; i++) {
+		if (v[i] != 0)
+			temp++;
+	}
+
+	cout << temp;
+
+
+	return 0;
+
+}
