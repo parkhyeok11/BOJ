@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+char Arr[101][101];
+
+int x, y;
+int search = 0; 
+
+int mx[4] = { 1, 0, -1, 0 };
+int my[4] = { 0, -1, 0, 1 };
+
+int main() {
+
+    int N;
+    string cmd;
+
+    cin >> N;
+    cin >> cmd;
+
+    x = y = 50;
+    Arr[x][y] = '.';
+
+
+    // make Map
+    for (int i = 0; i < N; i++) {
+        switch (cmd[i]) {
+        case 'F':
+
+            x += mx[search];
+            y += my[search];
+
+            Arr[x][y] = '.';
+
+            break;
+
+        case 'L':
+
+            search = (search + 3) % 4;
+            break;
+
+        case 'R':
+
+            search = (search + 1) % 4;
+            break;
+
+        }
+
+    }
+
+    int min_x = 101, min_y = 101, max_x = -1, max_y = -1;
+
+
+    for (int i = 0; i < 101; i++) {
+
+        for (int j = 0; j < 101; j++) {
+
+            if (Arr[i][j] == '.') {
+
+                if (min_x > i)
+                    min_x = i;
+
+                if (max_x < i)
+                    max_x = i;
+
+                if (min_y > j)
+                    min_y = j;
+
+                if (max_y < j)
+                    max_y = j;
+
+            }
+
+        }
+    }
+
+
+    for (int i = min_x; i <= max_x; i++) {
+        for (int j = min_y; j <= max_y; j++) {
+
+            if (Arr[i][j] != '.')
+                cout << '#';
+            else
+                cout << '.';
+
+        }
+        cout << "\n";
+    }
+}
