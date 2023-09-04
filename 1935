@@ -1,0 +1,55 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+int n;
+int* num_elem;
+string infix;
+
+void input() {
+    cin >> n;
+    cin >> infix;
+    num_elem = new int[n];
+
+    for (int i = 0; i < n; i++) cin >> num_elem[i];
+}
+
+void solution() {
+    stack<double> st;
+    double n1, n2;
+    for (const auto& x : infix) {
+        if (x >= 'A' && x <= 'Z') st.push(num_elem[x - 'A']);
+        else {
+            n2 = st.top();
+            st.pop();
+            n1 = st.top();
+            st.pop();
+
+            switch (x) {
+            case '+':
+                st.push(n1 + n2);
+                break;
+            case '-':
+                st.push(n1 - n2);
+                break;
+            case '*':
+                st.push(n1 * n2);
+                break;
+            case '/':
+                st.push(n1 / n2);
+                break;
+            }
+        }
+    }
+    cout << st.top();
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout << fixed;
+    cout.precision(2);
+
+    input();
+    solution();
+}
