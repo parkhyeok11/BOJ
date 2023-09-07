@@ -1,0 +1,34 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int n;
+int score;
+int p;
+vector<int> v;
+
+int main()
+{
+
+	cin >> n >> score >> p;
+
+	for (int i = 0; i < n; i++) {
+		int a;
+		cin >> a;
+		v.push_back(a);
+	}
+
+	if (n == p && v[v.size() - 1] >= score) cout << -1 << "\n";
+
+	else {
+		int rank = 1;
+
+		for (int i = 0; i < n; i++) {
+			if (v[i] > score) rank++;
+			else break;
+		}
+
+		cout << rank << "\n";
+	}
+}
