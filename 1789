@@ -1,0 +1,20 @@
+#include <iostream>
+
+int main() {
+long long int n = 0;
+    long long int max = 0;
+    long long int sum = 0;
+
+   std:: cin >> max;
+
+while (1) {
+n++;
+sum = sum + n;
+if (sum > max) {
+n--;
+break;
+}
+}
+    
+   std :: cout << n;
+}
