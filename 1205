@@ -9,6 +9,7 @@ int main()
 	int score;
 	int p;
 	vector<int> v;
+	//왜안되
 
 	cin >> n >> score >> p;
 
