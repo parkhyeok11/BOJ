@@ -1,0 +1,57 @@
+#include <iostream>
+
+int arr[1000000] = { 0, };
+
+void merge(int a[], int low, int mid, int hight){
+	int b[1000000];
+	int i = low;
+	int j = mid + 1;
+	int k = 0;
+
+	while (i <= mid && j <= hight){
+		if (a[i] <= a[j])
+			b[k++] = a[i++];
+		else
+			b[k++] = a[j++];
+	}
+
+	while (i <= mid)       
+		b[k++] = a[i++];
+
+	while (j <= hight)      
+		b[k++] = a[j++];
+
+	k--;
+
+	while (k >= 0){
+		a[low + k] = b[k];
+		k--;
+	}
+}
+
+void mergesort(int a[], int low, int hight){
+	int mid;
+
+	if (low < hight){
+		mid = (low + hight) / 2;
+		mergesort(a, low, mid);            
+		mergesort(a, mid + 1, hight);      
+		merge(a, low, mid, hight);        
+	}
+}
+
+int main()
+{
+	int i;
+	int cnt;    
+
+	std::cin >> cnt;
+
+	for (i = 0; i < cnt; i++)
+		std::cin >> arr[i];
+
+	mergesort(arr, 0, cnt - 1);
+
+	for (i = 0; i < cnt; i++)
+		std::cout << arr[i]<<"\n";
+}
