@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+
+using namespace std;
+
+int p;
+int m, n;
+
+map<int, int> a;
+map<int, int> b;
+
+vector<int> va; 
+vector<int> vb; 
+
+void makeMap()
+{
+    // 모든 조각 합치는 건 처음에 포함 
+    int sum, start, piece;
+    for (start = 0; start < m; start++) {
+        sum = 0;
+        for (piece = 0; piece < (m - 1); piece++) {
+            sum += va[(start + piece) % m];
+            a[sum]++; // 키 없으면 A[sum] 초기값 (0) 들어가고 +1
+        }
+    }
+
+    for (start = 0; start < n; start++) {
+        sum = 0;
+        for (piece = 0; piece < (n - 1); piece++) {
+            sum += vb[(start + piece) % n];
+            b[sum]++;
+        }
+    }
+}
+
+int main()
+{
+    cin >> p;
+    cin >> m >> n;
+
+    int num;
+    va.resize(m);
+    vb.resize(n);
+
+    int total = 0;
+    for (int i = 0; i < m; i++) {
+        cin >> num;
+        va[i] = num;
+        total += num;
+    }
+
+    a.insert({ total, 1 });
+
+    total = 0;
+
+    for (int i = 0; i < n; i++) {
+        cin >> num;
+        vb[i] = num;
+        total += num;
+    }
+
+    b.insert({ total, 1 });
+
+    makeMap();
+
+    int result = 0;
+
+    result += a[p];
+    result += b[p];
+
+    auto iterA = a.begin();
+    while (iterA != a.end()) {
+        int pizzaA = iterA->first;
+        int pizzaB = p - pizzaA;
+        result += a[pizzaA] * b[pizzaB];
+        iterA++;
+    }
+
+    cout << result;
+}
