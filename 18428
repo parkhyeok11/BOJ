@@ -1,0 +1,78 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+#define Max 7
+
+int n;
+int dy[4] = { 0, 1, 0, -1 };
+int dx[4] = { 1, 0, -1, 0 };
+char m[Max][Max];
+vector<pair<int, int> > v, t;
+
+bool chk(pair<int, int> pt)
+{
+    for (int i = 0; i < 4; i++) {
+
+        int y = pt.first, x = pt.second;
+
+        while (0 <= y + dy[i] && y + dy[i] < n && 0 <= x + dx[i] && x + dx[i] < n)
+        {
+            y += dy[i];
+            x += dx[i];
+
+            if (m[y][x] == 'O') {
+                break;
+            }
+
+            else if (m[y][x] == 'S') {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+void simulation(int len, int idx)
+{
+    if (len == 3) {
+        for (auto i : t) {
+            if (chk(i)) {
+                return;
+            }
+        }
+
+        cout << "YES" << "\n";
+        exit(0);
+    }
+
+    for (int i = idx; i < v.size(); i++) {
+        m[v[i].first][v[i].second] = 'O';
+        simulation(len + 1, i + 1);
+        m[v[i].first][v[i].second] = 'X';
+    }
+}
+
+int main()
+{
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> m[i][j];
+            if (m[i][j] == 'X') {
+                v.push_back({ i, j });
+            }
+            else if (m[i][j] == 'T') {
+                t.push_back({ i, j });
+            }
+        }
+    }
+
+    simulation(0, 0);
+
+    cout << "NO" << "\n";
+
+    return 0;
+}
