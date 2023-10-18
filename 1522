@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+void result(string str) {
+	int bCount{ 0 };
+
+	for (char c : str)
+		if (c == 'b')
+			bCount++;
+
+	int start = 0;
+	int end = bCount - 1;
+	int startTemp{}, endTemp{}, bTemp{};
+
+	while (start != str.length()) {
+		if (start <= end) {
+			int count{};
+			for (int idx{ start }; idx <= end; idx++) {
+				if (str[idx] == 'b')
+					count++;
+			}
+			if (count > bTemp) {
+				bTemp = count;
+				startTemp = start;
+				endTemp = end;
+			}
+		}
+		else {
+			int count{};
+			for (int idx{ 0 }; idx <= end; idx++) {
+				if (str[idx] == 'b')
+					count++;
+			}
+			for (int idx{ start }; idx < str.length(); idx++) {
+				if (str[idx] == 'b')
+					count++;
+			}
+			if (count > bTemp) {
+				bTemp = count;
+				startTemp = start;
+				endTemp = end;
+			}
+		}
+		start++;
+		end++;
+		if (end == str.length())
+			end = 0;
+	}
+
+	cout << bCount - bTemp;
+}
+
+int main() {
+	string str;
+	cin >> str;
+	result(str);
+}
