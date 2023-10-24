@@ -1,0 +1,214 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int N;
+int kingX, kingY;
+int stoneX, stoneY;
+
+int safe(int x, int y)
+{
+    if (x >= 0 && y >= 0 && x < 8 && y < 8)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void execute(string command)
+{
+    if (command == "B")
+    {
+        if (safe(kingX - 1, kingY) == 1)
+        {
+            kingX -= 1;
+
+            if (kingX == stoneX && kingY == stoneY)
+            {
+                if (safe(stoneX - 1, stoneY) == 1)
+                {
+                    stoneX -= 1;
+                }
+                else
+                {
+                    kingX += 1;
+                }
+            }
+        }
+    }
+    else if (command == "T")
+    {
+        if (safe(kingX + 1, kingY) == 1)
+        {
+            kingX += 1;
+
+            if (kingX == stoneX && kingY == stoneY)
+            {
+                if (safe(stoneX + 1, stoneY) == 1)
+                {
+                    stoneX += 1;
+                }
+                else
+                {
+                    kingX -= 1;
+                }
+            }
+        }
+    }
+    else if (command == "R")
+    {
+        if (safe(kingX, kingY + 1) == 1)
+        {
+            kingY += 1;
+
+            if (kingX == stoneX && kingY == stoneY)
+            {
+                if (safe(stoneX, stoneY + 1) == 1)
+                {
+                    stoneY += 1;
+                }
+                else
+                {
+                    kingY -= 1;
+                }
+            }
+        }
+    }
+    else if (command == "L")
+    {
+        if (safe(kingX, kingY - 1) == 1)
+        {
+            kingY -= 1;
+
+            if (kingX == stoneX && kingY == stoneY)
+            {
+                if (safe(stoneX, stoneY - 1) == 1)
+                {
+                    stoneY -= 1;
+                }
+                else
+                {
+                    kingY += 1;
+                }
+            }
+        }
+    }
+    else if (command == "RT")
+    {
+        if (safe(kingX + 1, kingY + 1) == 1)
+        {
+            kingX += 1;
+            kingY += 1;
+
+            if (kingX == stoneX && kingY == stoneY)
+            {
+                if (safe(stoneX + 1, stoneY + 1) == 1)
+                {
+                    stoneX += 1;
+                    stoneY += 1;
+                }
+                else
+                {
+                    kingX -= 1;
+                    kingY -= 1;
+                }
+            }
+        }
+    }
+    else if (command == "LT")
+    {
+        if (safe(kingX + 1, kingY - 1) == 1)
+        {
+            kingX += 1;
+            kingY -= 1;
+
+            if (kingX == stoneX && kingY == stoneY)
+            {
+                if (safe(stoneX + 1, stoneY - 1) == 1)
+                {
+                    stoneX += 1;
+                    stoneY -= 1;
+                }
+                else
+                {
+                    kingX -= 1;
+                    kingY += 1;
+                }
+            }
+        }
+    }
+    else if (command == "RB")
+    {
+        if (safe(kingX - 1, kingY + 1) == 1)
+        {
+            kingX -= 1;
+            kingY += 1;
+
+            if (kingX == stoneX && kingY == stoneY)
+            {
+                if (safe(stoneX - 1, stoneY + 1) == 1)
+                {
+                    stoneX -= 1;
+                    stoneY += 1;
+                }
+                else
+                {
+                    kingX += 1;
+                    kingY -= 1;
+                }
+            }
+        }
+    }
+    else if (command == "LB")
+    {
+        if (safe(kingX - 1, kingY - 1) == 1)
+        {
+            kingX -= 1;
+            kingY -= 1;
+
+            if (kingX == stoneX && kingY == stoneY)
+            {
+                if (safe(stoneX - 1, stoneY - 1) == 1)
+                {
+                    stoneX -= 1;
+                    stoneY -= 1;
+                }
+                else
+                {
+                    kingX += 1;
+                    kingY += 1;
+                }
+            }
+        }
+    }
+}
+
+int main(void)
+{
+    string king, stone;
+
+    cin >> king >> stone >> N;
+
+    kingX = king[1] - '1';
+    kingY = king[0] - 'A';
+
+    stoneX = stone[1] - '1';
+    stoneY = stone[0] - 'A';
+
+    for (int i = 1; i <= N; i++)
+    {
+        string command;
+        cin >> command;
+
+        execute(command);
+    }
+
+    cout << char(kingY + 'A') << char(kingX + '1') << endl;
+    cout << char(stoneY + 'A') << char(stoneX + '1');
+
+    return 0;
+}
