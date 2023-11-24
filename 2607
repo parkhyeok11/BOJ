@@ -1,0 +1,47 @@
+#include <iostream>
+#include<vector>
+#include<array>
+using namespace std;
+
+int n, ans = 0;
+
+bool check(const array<int, 26>& va, const array<int, 26>& first)
+{
+    int c = 0, vac = 0, firstc = 0;
+    for (int i = 0; i < 26; ++i)
+    {
+        vac += va[i];
+        firstc += first[i];
+        c += abs(va[i] - first[i]);
+    }
+    if (c <= 2 && abs(vac - firstc) <= 1)
+        return true;
+    else
+        return false;
+}
+
+int main()
+{
+    cin >> n;
+    string first;
+    cin >> first;
+    array<int, 26> firAlpha = {
+        0,
+    };
+    for (int i = 0; i < first.size(); ++i)
+        firAlpha[first[i] - 'A']++;
+    for (int i = 1; i < n; ++i)
+    {
+        string s;
+        cin >> s;
+        array<int, 26> alpha = {
+            0,
+        };
+        for (int i = 0; i < s.size(); ++i)
+            ++alpha[s[i] - 'A'];
+        if (check(alpha, firAlpha))
+            ++ans;
+    }
+    cout << ans;
+    return 0;
+}
