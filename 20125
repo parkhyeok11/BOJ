@@ -1,0 +1,86 @@
+#include<iostream>
+using namespace std;
+int main() {
+    int n = 0;
+    char temp;
+    int xhead = 0;
+    int yhead = 0;
+    int xheart = 0;
+    int yheart = 0;
+    int count = 0;
+    int tempn = 0;
+    int larm = 0;
+    int rarm = 0;
+    int huri = 0;
+    int lleg = 0;
+    int rleg = 0;
+
+    cin >> n;
+    //머리와 심장 찾기
+    for (int i = 1; i < n+1; i++) {
+        for (int j = 1; j < n+1; j++) {
+            cin >> temp;
+            if (yhead == 0 && temp == '*') {
+                xhead = j;
+                yhead = i;
+                xheart = xhead;
+                yheart = yhead + 1;
+            }
+            if (yhead != 0 && j == n ) break;
+        }
+
+        if (yhead != 0) {
+            tempn = n - i;
+            break;
+        }
+    }
+
+    //왼팔 오른팔 찾기
+    for (int i = 1; i < n+1; i++) {
+        cin >> temp;
+        if (temp == '*' && i < xheart) {
+            larm++;
+        }
+        if (temp == '*' && i > xheart) {
+            rarm++;
+        }
+    }
+    tempn = tempn - 1;
+
+    //허리찾기
+    for (int i = 1; i < tempn+1; i++) {
+        count = 0;
+        for (int j = 1; j < n+1; j++) {
+            cin >> temp;
+            if (temp == '*') {
+                count++;
+            }
+        }
+        if (count == 1) {
+            huri++;
+        }
+
+        else if (count > 1) {
+            lleg++;
+            rleg++;
+            tempn = tempn - i;
+            break;
+        }
+
+    }
+
+    //다리 찾기
+    for (int i = 1; i < tempn+1; i++) {
+        for (int j = 1; j < n+1; j++) {
+            cin >> temp;
+            if (temp == '*' && j < xheart) lleg++;
+            if (temp =='*' && j > xheart) rleg++;
+        }
+    }
+
+    //출력
+    cout << yheart << " " << xheart << "\n";
+    cout << larm<<" "<< rarm << " " << huri << " " << lleg << " " << rleg;
+
+
+}
