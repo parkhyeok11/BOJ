@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+	int h;
+	int m;
+	int t;
+	int c = 0;
+
+	cin >> h;
+	cin >> m;
+	cin >> t;
+
+	m = m + t;
+
+	while (m > 60) {
+		m = m - 60;
+		c++;
+	}
+	h = h + c;
+	
+	while (h >= 24) {
+		h = h - 24;
+	}
+
+	cout << h << " " << m;
+}
