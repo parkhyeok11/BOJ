@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+	int n;
+	string temp;
+	int c = 0;
+
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		bool alph[26] = { false, }; //a==97 아스키코드
+		cin >> temp;
+		int a = (int)temp[0];
+		alph[a-97] = true;
+
+		for (int j = 1; j < temp.length(); j++) {
+			if (temp[j] == temp[j - 1]) {
+				continue;
+			}
+
+			else if (temp[j] != temp[j-1] && alph[(int)(temp[j])-97]==true) {
+				c++;
+				break;
+			}
+
+			else {
+				alph[(int)(temp[j]) - 97] = true;
+			}
+		}
+	}
+
+	cout << n - c;
+
+	return 0;
+}
