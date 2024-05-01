@@ -1,0 +1,86 @@
+#include<iostream>
+using namespace std;
+
+class mystack {
+private:
+	int arr[1000] = { 0 }; //스택 크기
+
+public:
+	int top = -1; //위치 포인터
+	void push(int n);
+	int pop();
+	int slen();
+	int isempty();
+	int printtop();
+};
+
+int mystack::pop() {
+	if (top == -1) {
+		return -1; //스택이 비었을시 -1출력
+	}
+	else {
+		int temp = arr[top];
+		arr[top] = 0;
+		top--;
+		return temp;
+	}
+}
+
+void mystack::push(int n) {
+	top++;
+	arr[top] = n;
+}
+
+int mystack::slen() {
+	return top + 1;
+}
+
+int mystack::isempty() {
+	if (top == -1) {
+		return 1;
+	}
+
+	else return 0;
+}
+
+int mystack::printtop() {
+	if (top == -1) {
+		return -1;
+	}
+	else return arr[top];
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+
+	int n;
+	int cm;
+	int num=0;
+	mystack a;
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		cin >> cm;
+		if (cm == 1) {
+			cin >> num;
+			a.push(num);
+		}
+
+		else if (cm == 2) {
+			cout << a.pop() << "\n";
+		}
+
+		else if (cm == 3) {
+			cout << a.slen() << "\n";
+		}
+
+		else if (cm == 4) {
+			cout << a.isempty() << "\n";
+		}
+		else if (cm == 5) {
+			cout << a.printtop() << "\n";
+		}
+		else;
+	}
+}
